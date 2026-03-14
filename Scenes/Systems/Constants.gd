@@ -42,6 +42,16 @@ const SOUND_SOURCE_VENT_INTENSITY: float = 0.6
 const SOUND_SOURCE_SPRITE_SIZE: float = 32.0
 const SOUND_SOURCE_COLOR: Color = Color(0.5, 0.7, 0.9, 0.7)  # light blue
 
+# Recorder
+const RECORDER_CAPTURE_BEATS: int = 4  # how many beats the recorder captures
+const RECORDER_CAPTURE_RADIUS: float = 256.0  # 4 tiles
+const RECORDER_PLAYBACK_INTERVAL: float = 0.15  # seconds between replayed events
+const RECORDER_SPRITE_SIZE: float = 28.0
+const RECORDER_IDLE_COLOR: Color = Color(0.9, 0.7, 0.2, 0.9)  # gold on ground
+const RECORDER_RECORDING_COLOR: Color = Color(0.9, 0.2, 0.2, 0.9)  # red while recording
+const RECORDER_READY_COLOR: Color = Color(0.2, 0.9, 0.4, 0.9)  # green when ready to play
+const RECORDER_SPENT_COLOR: Color = Color(0.3, 0.3, 0.3, 0.4)  # dim gray after used
+
 # Player
 const PLAYER_MOVE_DURATION: float = 0.12  # seconds for move tween
 const PLAYER_COLOR: Color = Color(0.6, 0.8, 1.0, 0.9)  # ghostly blue-white
@@ -52,4 +62,5 @@ const PLAYER_MASKED_COLOR: Color = Color(0.2, 0.4, 0.9, 0.9)  # blue (masked by 
 # Levels
 const LEVEL_SCENES: Array[String] = [
 	"res://Scenes/Levels/Level01.tscn",
+	"res://Scenes/Levels/Level02.tscn",
 ]

@@ -10,6 +10,8 @@ var grid_position: Vector2i = Vector2i(2, 2)
 var _is_moving: bool = false
 var _tilemap: TileMapLayer = null
 var _sprite: Sprite2D = null
+var _recorder: Node = null  # currently held/active recorder
+var _recorder_placed: bool = false  # true after recorder dropped and recording
 
 
 func _ready() -> void:
@@ -61,6 +63,10 @@ func _unhandled_input(event: InputEvent) -> void:
 		direction = Vector2i(0, -1)
 	elif event.is_action_pressed("ui_down") or event.is_action_pressed("move_down"):
 		direction = Vector2i(0, 1)
+
+	if event.is_action_pressed("use_recorder"):
+		_try_use_recorder()
+		return
 
 	if direction != Vector2i.ZERO:
 		_try_move(direction)
@@ -129,6 +135,29 @@ func _animate_move() -> void:
 
 func _on_move_finished() -> void:
 	_is_moving = false
+
+
+func _try_use_recorder() -> void:
+	if _recorder == null:
+		return
+	if not _recorder_placed:
+		# First press: drop recorder at current position, start recording
+		_recorder.start_recording(_tile_to_world(grid_position))
+		_recorder_placed = true
+	else:
+		# Second press: trigger playback
+		if _recorder.state == _recorder.STATE_READY:
+			_recorder.start_playback()
+
+
+func _on_recorder_pickup(recorder: Node) -> void:
+	_recorder = recorder
+	_recorder_placed = false
+
+
+func _on_recorder_spent() -> void:
+	_recorder = null
+	_recorder_placed = false
 
 
 func _flash_color(color: Color) -> void:
