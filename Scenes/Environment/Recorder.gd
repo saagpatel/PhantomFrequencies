@@ -78,6 +78,7 @@ func start_recording(record_position: Vector2) -> void:
 	_captured_events.clear()
 	_beats_recorded = 0
 	_apply_state_visual()
+	AudioManager.play_recorder_activate()
 	SoundPropagation.sound_emitted.connect(_on_sound_during_recording)
 	BeatManager.beat_tick.connect(_on_beat_during_recording)
 
@@ -126,6 +127,7 @@ func start_playback() -> void:
 	_playback_index = 0
 	_playback_timer = 0.0
 	_apply_state_visual()
+	AudioManager.play_recorder_playback()
 
 
 func _process(delta: float) -> void:

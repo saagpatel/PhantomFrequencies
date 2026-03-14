@@ -127,6 +127,7 @@ func _on_sound_emitted(event: Dictionary) -> void:
 		STATE_INVESTIGATE:
 			# Second sound while investigating → confirm threat
 			_transition_to(STATE_ALERT)
+			AudioManager.play_alert_sting()
 		STATE_ALERT:
 			pass  # already chasing
 		STATE_RETURN:

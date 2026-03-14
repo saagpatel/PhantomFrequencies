@@ -63,4 +63,22 @@ const PLAYER_MASKED_COLOR: Color = Color(0.2, 0.4, 0.9, 0.9)  # blue (masked by 
 const LEVEL_SCENES: Array[String] = [
 	"res://Scenes/Levels/Level01.tscn",
 	"res://Scenes/Levels/Level02.tscn",
+	"res://Scenes/Levels/Level03.tscn",
 ]
+const LEVEL_NAMES: Array[String] = ["Tutorial", "Intermediate", "Full Run"]
+
+# Transitions
+const FADE_DURATION: float = 0.5
+const LEVEL_COMPLETE_DISPLAY_TIME: float = 2.5
+
+# Menu
+const MAIN_MENU_SCENE: String = "res://Scenes/UI/MainMenu.tscn"
+
+# Audio
+const MUSIC_BUS: String = "Music"
+const SFX_BUS: String = "SFX"
+const AMBIENT_BUS: String = "Ambient"
+
+# Level 03 bonus exit
+const BONUS_EXIT_TILE: Vector2i = Vector2i(22, 1)
+const BONUS_EXIT_BEAT_WINDOW: int = 4  # must arrive on a beat divisible by 4

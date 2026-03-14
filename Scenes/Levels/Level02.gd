@@ -34,6 +34,7 @@ func _ready() -> void:
 
 	SoundPropagation.set_tilemap(tilemap)
 	SoundPropagation.init_wave_pool(self)
+	GameState.start_level_timer()
 
 
 func _setup_tileset(tilemap: TileMapLayer) -> void:

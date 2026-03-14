@@ -1,6 +1,6 @@
-[gd_scene load_steps=10 format=3 uid="uid://clevel_02"]
+[gd_scene load_steps=10 format=3 uid="uid://clevel_03"]
 
-[ext_resource type="Script" path="res://Scenes/Levels/Level02.gd" id="1_level"]
+[ext_resource type="Script" path="res://Scenes/Levels/Level03.gd" id="1_level"]
 [ext_resource type="PackedScene" uid="uid://bbeat_indicator" path="res://Scenes/UI/BeatIndicator.tscn" id="2_beat"]
 [ext_resource type="PackedScene" uid="uid://cplayer" path="res://Scenes/Player/Player.tscn" id="3_player"]
 [ext_resource type="PackedScene" uid="uid://cpatroller" path="res://Scenes/Guards/Patroller.tscn" id="4_patroller"]
@@ -9,41 +9,64 @@
 [ext_resource type="PackedScene" uid="uid://crecorder" path="res://Scenes/Environment/Recorder.tscn" id="7_recorder"]
 [ext_resource type="PackedScene" uid="uid://cpause_menu" path="res://Scenes/UI/PauseMenu.tscn" id="8_pause"]
 
-[sub_resource type="TileSet" id="TileSet_level02"]
+[sub_resource type="TileSet" id="TileSet_level03"]
 tile_size = Vector2i(64, 64)
 
-[node name="Level02" type="Node2D"]
+[node name="Level03" type="Node2D"]
 script = ExtResource("1_level")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
-tile_set = SubResource("TileSet_level02")
+tile_set = SubResource("TileSet_level03")
 
 [node name="Player" parent="." instance=ExtResource("3_player")]
-position = Vector2(96, 928)
+position = Vector2(96, 1184)
 
 [node name="Patroller1" parent="." instance=ExtResource("4_patroller")]
 position = Vector2(160, 288)
 
 [node name="Patroller2" parent="." instance=ExtResource("4_patroller")]
-position = Vector2(160, 800)
+position = Vector2(160, 928)
 
-[node name="Sentinel" parent="." instance=ExtResource("5_sentinel")]
-position = Vector2(672, 544)
+[node name="Patroller3" parent="." instance=ExtResource("4_patroller")]
+position = Vector2(1312, 416)
+
+[node name="Sentinel1" parent="." instance=ExtResource("5_sentinel")]
+position = Vector2(608, 480)
+
+[node name="Sentinel2" parent="." instance=ExtResource("5_sentinel")]
+position = Vector2(1120, 800)
+
+[node name="Machinery1" parent="." instance=ExtResource("6_sound_source")]
+position = Vector2(352, 480)
+
+[node name="Machinery2" parent="." instance=ExtResource("6_sound_source")]
+position = Vector2(1312, 800)
 
 [node name="Drip1" parent="." instance=ExtResource("6_sound_source")]
-position = Vector2(224, 608)
+position = Vector2(224, 800)
 source_type = 1
 
 [node name="Drip2" parent="." instance=ExtResource("6_sound_source")]
-position = Vector2(480, 352)
+position = Vector2(1120, 352)
 source_type = 1
 
-[node name="Vent" parent="." instance=ExtResource("6_sound_source")]
-position = Vector2(352, 544)
+[node name="Vent1" parent="." instance=ExtResource("6_sound_source")]
+position = Vector2(544, 288)
 source_type = 2
 
-[node name="Recorder" parent="." instance=ExtResource("7_recorder")]
-position = Vector2(352, 800)
+[node name="Vent2" parent="." instance=ExtResource("6_sound_source")]
+position = Vector2(1248, 1120)
+source_type = 2
+
+[node name="Recorder1" parent="." instance=ExtResource("7_recorder")]
+position = Vector2(352, 992)
+
+[node name="Recorder2" parent="." instance=ExtResource("7_recorder")]
+position = Vector2(832, 800)
+
+[node name="Vent3" parent="." instance=ExtResource("6_sound_source")]
+position = Vector2(896, 800)
+source_type = 2
 
 [node name="ExitArea" type="Area2D" parent="."]
 collision_layer = 0
@@ -51,9 +74,15 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ExitArea"]
 
+[node name="BonusExitArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BonusExitArea"]
+
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(512, 512)
-zoom = Vector2(1.0, 1.0)
+position = Vector2(768, 640)
+zoom = Vector2(0.8, 0.8)
 
 [node name="BeatIndicator" parent="." instance=ExtResource("2_beat")]
 

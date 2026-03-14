@@ -102,6 +102,7 @@ func _try_move(direction: Vector2i) -> void:
 	# Execute the move
 	grid_position = target_tile
 	_animate_move()
+	AudioManager.play_footstep()
 
 
 func _is_wall(tile: Vector2i) -> bool:
