@@ -19,6 +19,17 @@ const PLAYER_SOUND_INTENSITY: float = 1.0
 const GUARD_HEARING_RANGE: float = 320.0   # 5 tiles
 const SENTINEL_HEARING_RANGE: float = 448.0  # 7 tiles
 
+# Guards
+const GUARD_SPRITE_SIZE: float = 48.0
+const GUARD_HEARING_THRESHOLD: float = 0.3  # min intensity to react
+const GUARD_INVESTIGATE_BEAT_INTERVAL: int = 2  # move every N beats when investigating
+const GUARD_INVESTIGATE_TIMEOUT_BEATS: int = 4  # beats of silence before returning
+const GUARD_ALERT_ESCAPE_BEATS: int = 6  # beats of silence in alert before returning
+const GUARD_PATROL_COLOR: Color = Color(0.2, 0.8, 0.3, 0.9)  # green
+const GUARD_INVESTIGATE_COLOR: Color = Color(0.9, 0.8, 0.2, 0.9)  # yellow
+const GUARD_ALERT_COLOR: Color = Color(0.9, 0.2, 0.2, 0.9)  # red
+const GUARD_RETURN_COLOR: Color = Color(0.4, 0.6, 0.9, 0.9)  # blue
+
 # Player
 const PLAYER_MOVE_DURATION: float = 0.12  # seconds for move tween
 const PLAYER_COLOR: Color = Color(0.6, 0.8, 1.0, 0.9)  # ghostly blue-white

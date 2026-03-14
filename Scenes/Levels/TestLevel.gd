@@ -23,6 +23,9 @@ func _ready() -> void:
 	SoundPropagation.set_tilemap(tilemap)
 	SoundPropagation.init_wave_pool(self)
 
+	# Set up guard patrol paths
+	_setup_guards()
+
 
 func _setup_tileset(tilemap: TileMapLayer) -> void:
 	var tile_size: int = Constants.TILE_SIZE
@@ -63,6 +66,17 @@ func _setup_tileset(tilemap: TileMapLayer) -> void:
 
 	tileset.add_source(source, 0)
 	tilemap.tile_set = tileset
+
+
+func _setup_guards() -> void:
+	var patroller: Node = $Patroller
+	# Patrol loop along the middle of the room
+	var waypoints: Array[Vector2i] = [
+		Vector2i(3, 5), Vector2i(4, 5), Vector2i(5, 5), Vector2i(6, 5),
+		Vector2i(7, 5), Vector2i(8, 5), Vector2i(8, 5), Vector2i(7, 5),
+		Vector2i(6, 5), Vector2i(5, 5), Vector2i(4, 5), Vector2i(3, 5),
+	]
+	patroller.set_patrol_waypoints(waypoints)
 
 
 func _generate_room(tilemap: TileMapLayer) -> void:
