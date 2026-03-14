@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://ctest_level"]
+
+[ext_resource type="Script" path="res://Scenes/Levels/TestLevel.gd" id="1_level"]
+[ext_resource type="PackedScene" uid="uid://bbeat_indicator" path="res://Scenes/UI/BeatIndicator.tscn" id="2_beat"]
+
+[sub_resource type="TileSet" id="TileSet_room"]
+tile_size = Vector2i(64, 64)
+
+[node name="TestLevel" type="Node2D"]
+script = ExtResource("1_level")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_room")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(384, 320)
+zoom = Vector2(1.5, 1.5)
+
+[node name="BeatIndicator" parent="." instance=ExtResource("2_beat")]
