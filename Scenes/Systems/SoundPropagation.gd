@@ -7,7 +7,7 @@ signal sound_emitted(event: Dictionary)
 
 ## Active sound events. Each entry:
 ## { origin: Vector2, radius: float, intensity: float, source: Node,
-##   time_remaining: float, id: int }
+##   time_remaining: float, id: int, is_environmental: bool }
 var _active_events: Array[Dictionary] = []
 var _next_event_id: int = 0
 var _tilemap: TileMapLayer = null
@@ -34,6 +34,7 @@ func init_wave_pool(parent: Node) -> void:
 
 ## Emit a sound event at a world position.
 func emit_sound(origin: Vector2, radius: float, intensity: float, source: Node) -> void:
+	var is_env: bool = source.is_in_group("sound_source")
 	var event: Dictionary = {
 		"origin": origin,
 		"radius": radius,
@@ -41,11 +42,25 @@ func emit_sound(origin: Vector2, radius: float, intensity: float, source: Node) 
 		"source": source,
 		"time_remaining": Constants.SOUND_EVENT_TTL,
 		"id": _next_event_id,
+		"is_environmental": is_env,
 	}
 	_next_event_id += 1
 	_active_events.append(event)
 	sound_emitted.emit(event)
 	_spawn_wave_vfx(origin, radius, intensity)
+
+
+## Check if a position is within an active environmental sound's radius.
+## Used for masking player sounds.
+func is_masked_by_environment(position: Vector2) -> bool:
+	for event: Dictionary in _active_events:
+		if not event["is_environmental"]:
+			continue
+		var env_origin: Vector2 = event["origin"] as Vector2
+		var env_radius: float = event["radius"] as float
+		if position.distance_to(env_origin) <= env_radius:
+			return true
+	return false
 
 
 ## Check if a sound at origin can reach target without hitting a wall.
@@ -78,6 +93,18 @@ func can_sound_reach(origin: Vector2, target: Vector2) -> bool:
 
 func get_active_events() -> Array[Dictionary]:
 	return _active_events
+
+
+## Clear all state for level transitions.
+func clear() -> void:
+	_active_events.clear()
+	_next_event_id = 0
+	_tilemap = null
+	for wave: Node in _wave_pool:
+		wave.deactivate()
+		wave.queue_free()
+	_wave_pool.clear()
+	_pool_parent = null
 
 
 func _process(delta: float) -> void:

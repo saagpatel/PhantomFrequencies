@@ -26,6 +26,9 @@ var _patrol_waypoints: Array[Vector2i] = []
 var _patrol_index: int = 0
 var _return_waypoint_index: int = 0  # where to resume patrol after returning
 
+# Familiarity: environmental sources this guard has already heard
+var _known_source_ids: Dictionary = {}  # instance_id → true
+
 
 func _ready() -> void:
 	_tilemap = get_parent().get_node_or_null("TileMapLayer") as TileMapLayer
@@ -85,6 +88,21 @@ func set_patrol_waypoints(waypoints: Array[Vector2i]) -> void:
 func _on_sound_emitted(event: Dictionary) -> void:
 	var sound_origin: Vector2 = event["origin"] as Vector2
 	var intensity: float = event["intensity"] as float
+	var source: Node = event["source"] as Node
+	var is_environmental: bool = event.get("is_environmental", false) as bool
+
+	# Filter: environmental sounds from familiar sources
+	if is_environmental:
+		var src_id: int = source.get_instance_id()
+		if _known_source_ids.has(src_id):
+			return  # already familiar, ignore
+		# First time hearing this source — register and ignore
+		_known_source_ids[src_id] = true
+		return
+
+	# Filter: player sounds masked by environmental noise
+	if SoundPropagation.is_masked_by_environment(sound_origin):
+		return
 
 	# Filter: below hearing threshold
 	if intensity < hearing_threshold:
@@ -182,6 +200,17 @@ func _do_alert() -> void:
 
 	# Chase: move toward last known sound position every beat
 	_move_toward_world_position(_last_sound_position)
+
+	# Check if guard caught the player (same tile)
+	_check_player_caught()
+
+
+func _check_player_caught() -> void:
+	var player: Node = get_tree().get_first_node_in_group("player")
+	if player == null:
+		return
+	if grid_position == player.grid_position:
+		LevelManager.on_player_caught()
 
 
 func _do_return() -> void:

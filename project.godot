@@ -16,7 +16,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="Phantom Frequencies"
 config/description="A rhythm-based stealth game where sound is both weapon and vulnerability."
-run/main_scene="res://Scenes/Levels/TestLevel.tscn"
+run/main_scene="res://Scenes/Levels/Level01.tscn"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 
 [autoload]
@@ -24,6 +24,7 @@ config/features=PackedStringArray("4.6", "GL Compatibility")
 Constants="*res://Scenes/Systems/Constants.gd"
 BeatManager="*res://Scenes/Systems/BeatManager.gd"
 SoundPropagation="*res://Scenes/Systems/SoundPropagation.gd"
+LevelManager="*res://Scenes/Systems/LevelManager.gd"
 
 [display]
 

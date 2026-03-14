@@ -30,8 +30,26 @@ const GUARD_INVESTIGATE_COLOR: Color = Color(0.9, 0.8, 0.2, 0.9)  # yellow
 const GUARD_ALERT_COLOR: Color = Color(0.9, 0.2, 0.2, 0.9)  # red
 const GUARD_RETURN_COLOR: Color = Color(0.4, 0.6, 0.9, 0.9)  # blue
 
+# Environmental sound sources
+const SOUND_SOURCE_MACHINERY_INTERVAL: int = 2  # emit every N beats
+const SOUND_SOURCE_MACHINERY_RADIUS: float = 256.0  # 4 tiles
+const SOUND_SOURCE_MACHINERY_INTENSITY: float = 0.8
+const SOUND_SOURCE_DRIP_RADIUS: float = 128.0  # 2 tiles
+const SOUND_SOURCE_DRIP_INTENSITY: float = 0.4
+const SOUND_SOURCE_DRIP_CHANCE: float = 0.3  # 30% chance per beat
+const SOUND_SOURCE_VENT_RADIUS: float = 192.0  # 3 tiles
+const SOUND_SOURCE_VENT_INTENSITY: float = 0.6
+const SOUND_SOURCE_SPRITE_SIZE: float = 32.0
+const SOUND_SOURCE_COLOR: Color = Color(0.5, 0.7, 0.9, 0.7)  # light blue
+
 # Player
 const PLAYER_MOVE_DURATION: float = 0.12  # seconds for move tween
 const PLAYER_COLOR: Color = Color(0.6, 0.8, 1.0, 0.9)  # ghostly blue-white
 const PLAYER_ON_BEAT_COLOR: Color = Color(0.2, 0.9, 0.3, 0.9)  # green flash
 const PLAYER_OFF_BEAT_COLOR: Color = Color(0.9, 0.2, 0.2, 0.9)  # red flash
+const PLAYER_MASKED_COLOR: Color = Color(0.2, 0.4, 0.9, 0.9)  # blue (masked by env sound)
+
+# Levels
+const LEVEL_SCENES: Array[String] = [
+	"res://Scenes/Levels/Level01.tscn",
+]

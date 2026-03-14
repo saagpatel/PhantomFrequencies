@@ -16,8 +16,12 @@ func _ready() -> void:
 	# Find the tilemap in the parent level
 	_tilemap = get_parent().get_node_or_null("TileMapLayer") as TileMapLayer
 	_sprite = $Sprite2D
+	add_to_group("player")
 	_setup_sprite()
 	_setup_collision()
+	# Derive grid position from scene placement
+	var ts: int = Constants.TILE_SIZE
+	grid_position = Vector2i(int(position.x) / ts, int(position.y) / ts)
 	_snap_to_grid()
 
 
@@ -75,9 +79,13 @@ func _try_move(direction: Vector2i) -> void:
 	if on_beat:
 		_flash_color(Constants.PLAYER_ON_BEAT_COLOR)
 	else:
-		_flash_color(Constants.PLAYER_OFF_BEAT_COLOR)
 		# Off-beat movement emits sound
 		var world_pos: Vector2 = _tile_to_world(target_tile)
+		var is_masked: bool = SoundPropagation.is_masked_by_environment(world_pos)
+		if is_masked:
+			_flash_color(Constants.PLAYER_MASKED_COLOR)
+		else:
+			_flash_color(Constants.PLAYER_OFF_BEAT_COLOR)
 		SoundPropagation.emit_sound(
 			world_pos,
 			Constants.PLAYER_SOUND_RADIUS,
