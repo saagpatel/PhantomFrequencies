@@ -19,6 +19,10 @@ func _ready() -> void:
 	_setup_tileset(tilemap)
 	_generate_room(tilemap)
 
+	# Wire up SoundPropagation with the tilemap and wave pool
+	SoundPropagation.set_tilemap(tilemap)
+	SoundPropagation.init_wave_pool(self)
+
 
 func _setup_tileset(tilemap: TileMapLayer) -> void:
 	var tile_size: int = Constants.TILE_SIZE
